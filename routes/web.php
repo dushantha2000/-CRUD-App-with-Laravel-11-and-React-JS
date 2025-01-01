@@ -19,13 +19,22 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-//Route
 
-// Defines a route that responds to HTTP GET requests to the URL /users.
-//This is the endpoint users will access to trigger the loadUsers method in the UserController.
-// If your application is hosted at example.com, this route will be accessible at http://example.com/users.
+
+
+
+//Route
 //Specifies which controller and method should handle the request to /users.
-Route::get('/users',[UserController::class,'loadUsers'])->name('users.index'); 
+Route::get('/users', [UserController::class, 'loadUsers'])->name('users.index');
+//user edit
+Route::get('/edit/user/{user_id}', [UserController::class, 'loadEditForm'])->name('users.edit');
+
+//user delete
+Route::get('/delete/user{$user_id}', [UserController::class, 'deleteUser'])->name('users.delete');
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
