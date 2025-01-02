@@ -30,7 +30,10 @@ Route::get('/users', [UserController::class, 'loadUsers'])->name('users.index');
 Route::get('/edit/user/{user_id}', [UserController::class, 'loadEditForm'])->name('users.edit');
 
 //user delete
-Route::get('/delete/user{$user_id}', [UserController::class, 'deleteUser'])->name('users.delete');
+Route::get('/delete/user{user_id}', [UserController::class, 'deleteUser'])->name('users.delete');
+
+// post the user data to the EditForm
+Route::post('/edit/user', [UserController::class, 'editUser'])->name('users.update');
 
 
 

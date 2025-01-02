@@ -30,10 +30,26 @@ class UserController extends Controller
 
 
 
-    public function loadEditForm($user_id){
+    public function loadEditForm($user_id)
+    {
         $user = Auth::user();
         $userDetails = User::find($user_id);
         return Inertia::render('Users/EditForm', ['user' => $user, 'userDetails' => $userDetails]);
     }
-    
+    public function editUser(Request $request)
+    {
+        
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return Inertia::render('users.index');
+    } 
 }
