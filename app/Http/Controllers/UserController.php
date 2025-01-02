@@ -38,18 +38,19 @@ class UserController extends Controller
     }
     public function editUser(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
-        
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
         return Inertia::render('users.index');
-    } 
+    }
+    
 }
